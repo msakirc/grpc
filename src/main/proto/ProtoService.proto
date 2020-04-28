@@ -1,0 +1,21 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.msakirc.grpc.server.proto;
+
+
+message CubeRequestProto {
+  string cube_id = 1;
+  string user_id = 2;
+}
+
+
+message OlapCubeProto {
+  string cube_id = 1;
+  string user_id = 2;
+  string caption = 3;
+}
+
+
+service CubeShareServiceProto {
+  rpc GetMondrianCubeProto (CubeRequestProto) returns (OlapCubeProto);
+}

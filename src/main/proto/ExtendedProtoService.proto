@@ -1,0 +1,66 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.msakirc.grpc.server.proto;
+
+message ExtendedHierarchyInfo {
+  string hierarchy_name = 1;
+  bool default_hierarchy = 2;
+  repeated string levels = 3;
+}
+
+message ExtendedMondrianDimension {
+  string dimension_name = 1;
+  repeated ExtendedHierarchyInfo hierarchies = 2;
+}
+
+message ExtendedOracleDimension {
+  string dimension_name = 1;
+  repeated ExtendedHierarchyInfo hierarchies = 2;
+  uint64 dimension_id = 3;
+  string description = 4;
+  string view_name = 5;
+}
+
+message ExtendedOracleVirtualDimension {
+  string dimension_name = 1;
+  repeated ExtendedHierarchyInfo hierarchies = 2;
+  uint64 dimension_id = 3;
+  string description = 4;
+  string view_name = 5;
+  bool is_common = 6;
+}
+
+message ExtendedMondrianCube {
+  string id = 1;
+  string cube_name = 2;
+  string caption = 3;
+  repeated ExtendedMondrianDimension dimensions = 4;
+}
+
+message ExtendedOracleCube {
+  string id = 1;
+  string cube_name = 2;
+  string caption = 3;
+  repeated ExtendedOracleDimension dimensions = 4;
+  string cube_view_name = 5;
+}
+
+message ExtendedOracleVirtualCube {
+  string id = 1;
+  string cube_name = 2;
+  string caption = 3;
+  repeated ExtendedOracleVirtualDimension dimensions = 4;
+  string cube_view_name = 5;
+  repeated ExtendedOracleCube subcubes = 6;
+}
+
+message ExtendedCubeRequestProto {
+  string cube_id = 1;
+  string user_id = 2;
+}
+
+service ExtendedCubeShareServiceProto {
+  rpc GetMondrianCubeProto (ExtendedCubeRequestProto) returns (ExtendedMondrianCube);
+  rpc GetOracleCube (ExtendedCubeRequestProto) returns (ExtendedOracleCube);
+  rpc GetOracleVirtualCube (ExtendedCubeRequestProto) returns (ExtendedOracleVirtualCube);
+}

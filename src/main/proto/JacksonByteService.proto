@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.msakirc.grpc.server.proto;
+
+
+message OlapCubeJackson {
+  bytes cube = 1;
+}
+
+message CubeRequestJackson {
+  string cube_id = 1;
+  string user_id = 2;
+}
+
+service CubeShareServiceJackson {
+  rpc GetOlapCubeJackson (CubeRequestJackson) returns (OlapCubeJackson);
+}
